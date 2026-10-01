@@ -14,4 +14,8 @@ public class Equipement {
     private Long idEquipement;
     @Column(nullable = false, length = 100)
     private String libelle;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_vehicule", nullable = false)
+    private Vehicule vehicule;
 }
