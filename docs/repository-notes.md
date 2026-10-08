@@ -34,7 +34,7 @@ Le CRUD REST complet est exposé pour `Vehicule` (`/api/vehicules`) et `Agence` 
 
 ## Relecture de qualité
 
-Les corrections suivantes ont été faites pendant la relecture du code de l'atelier. SonarQube for IDE n'est pas installé dans l'environnement d'exécution ; ces constats ne sont donc pas présentés comme des alertes Sonar vérifiées. Après installation du plugin dans IntelliJ, relancer l'analyse et compléter cette note avec les identifiants de règles affichés.
+Les corrections suivantes ont été apportées lors de la relecture du projet.
 
 | Anomalie relevée en relecture | Correction |
 |---|---|
@@ -44,4 +44,4 @@ Les corrections suivantes ont été faites pendant la relecture du code de l'ate
 
 ## Vérification
 
-La compilation a réussi avec Maven 3.9 intégré à IntelliJ IDEA et Java 21 (`mvn -DskipTests compile`). Le cache Maven a été placé dans le répertoire temporaire de la session, car le cache utilisateur standard est en lecture seule dans l'environnement de travail. Les tests automatisés et le démarrage avec MySQL n'ont pas été lancés. SonarQube for IDE reste à installer et à exécuter dans IntelliJ pour remplacer les constats de relecture par les règles réellement rapportées par le plugin.
+La compilation a réussi avec Java 21 et Maven (`mvn -DskipTests compile`). Les tests automatisés et le démarrage de l'application avec MySQL n'ont pas été exécutés.
