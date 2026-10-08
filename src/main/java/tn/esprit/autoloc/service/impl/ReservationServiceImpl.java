@@ -18,7 +18,7 @@ public class ReservationServiceImpl implements IReservationService {
     @Override @Transactional(readOnly = true) public List<Reservation> findAll() { return repository.findAll(); }
     @Override @Transactional(readOnly = true) public Reservation findById(Long id) { return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Reservation introuvable : " + id)); }
     @Override public Reservation update(Long id, Reservation entity) {
-        Reservation existing = findById(id);
+        Reservation existing = repository.findById(id).orElseThrow(() -> new NoSuchElementException("Reservation introuvable : " + id));
         existing.setDateDebut(entity.getDateDebut());
         existing.setDateFin(entity.getDateFin());
         existing.setStatut(entity.getStatut());

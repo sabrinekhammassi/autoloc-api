@@ -18,7 +18,7 @@ public class ClientServiceImpl implements IClientService {
     @Override @Transactional(readOnly = true) public List<Client> findAll() { return repository.findAll(); }
     @Override @Transactional(readOnly = true) public Client findById(Long id) { return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Client introuvable : " + id)); }
     @Override public Client update(Long id, Client entity) {
-        Client existing = findById(id);
+        Client existing = repository.findById(id).orElseThrow(() -> new NoSuchElementException("Client introuvable : " + id));
         existing.setNom(entity.getNom());
         existing.setPrenom(entity.getPrenom());
         existing.setEmail(entity.getEmail());

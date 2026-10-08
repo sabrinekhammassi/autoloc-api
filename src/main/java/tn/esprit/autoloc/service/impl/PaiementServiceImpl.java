@@ -18,7 +18,7 @@ public class PaiementServiceImpl implements IPaiementService {
     @Override @Transactional(readOnly = true) public List<Paiement> findAll() { return repository.findAll(); }
     @Override @Transactional(readOnly = true) public Paiement findById(Long id) { return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Paiement introuvable : " + id)); }
     @Override public Paiement update(Long id, Paiement entity) {
-        Paiement existing = findById(id);
+        Paiement existing = repository.findById(id).orElseThrow(() -> new NoSuchElementException("Paiement introuvable : " + id));
         existing.setMontant(entity.getMontant());
         existing.setDatePaiement(entity.getDatePaiement());
         existing.setModePaiement(entity.getModePaiement());

@@ -21,7 +21,7 @@ public class ContratServiceImpl implements IContratService {
     @Override @Transactional(readOnly = true) public List<Contrat> findAll() { return repository.findAll(); }
     @Override @Transactional(readOnly = true) public Contrat findById(Long id) { return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Contrat introuvable : " + id)); }
     @Override public Contrat update(Long id, Contrat entity) {
-        Contrat existing = findById(id);
+        Contrat existing = repository.findById(id).orElseThrow(() -> new NoSuchElementException("Contrat introuvable : " + id));
         existing.setDateSignature(entity.getDateSignature());
         existing.setMontantTotal(entity.getMontantTotal());
         existing.setValide(entity.isValide());

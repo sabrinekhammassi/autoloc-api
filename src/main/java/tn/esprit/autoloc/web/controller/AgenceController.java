@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.autoloc.domain.Agence;
 import tn.esprit.autoloc.service.IAgenceService;
+import tn.esprit.autoloc.web.dto.AgenceRequest;
 import java.util.List;
 
 @RestController
@@ -11,9 +12,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AgenceController {
     private final IAgenceService service;
-    @PostMapping public Agence create(@RequestBody Agence entity) { return service.create(entity); }
+    @PostMapping public Agence create(@RequestBody AgenceRequest request) {
+        return service.create(request.toEntity());
+    }
     @GetMapping public List<Agence> findAll() { return service.findAll(); }
     @GetMapping("/{id}") public Agence findById(@PathVariable Long id) { return service.findById(id); }
-    @PutMapping("/{id}") public Agence update(@PathVariable Long id, @RequestBody Agence entity) { return service.update(id, entity); }
+    @PutMapping("/{id}") public Agence update(@PathVariable Long id, @RequestBody AgenceRequest request) {
+        return service.update(id, request.toEntity());
+    }
     @DeleteMapping("/{id}") public void delete(@PathVariable Long id) { service.delete(id); }
 }

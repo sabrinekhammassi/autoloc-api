@@ -18,7 +18,7 @@ public class MaintenanceServiceImpl implements IMaintenanceService {
     @Override @Transactional(readOnly = true) public List<Maintenance> findAll() { return repository.findAll(); }
     @Override @Transactional(readOnly = true) public Maintenance findById(Long id) { return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Maintenance introuvable : " + id)); }
     @Override public Maintenance update(Long id, Maintenance entity) {
-        Maintenance existing = findById(id);
+        Maintenance existing = repository.findById(id).orElseThrow(() -> new NoSuchElementException("Maintenance introuvable : " + id));
         existing.setDateDebut(entity.getDateDebut());
         existing.setDateFin(entity.getDateFin());
         existing.setDescription(entity.getDescription());

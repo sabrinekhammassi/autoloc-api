@@ -18,7 +18,7 @@ public class AgenceServiceImpl implements IAgenceService {
     @Override @Transactional(readOnly = true) public List<Agence> findAll() { return repository.findAll(); }
     @Override @Transactional(readOnly = true) public Agence findById(Long id) { return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Agence introuvable : " + id)); }
     @Override public Agence update(Long id, Agence entity) {
-        Agence existing = findById(id);
+        Agence existing = repository.findById(id).orElseThrow(() -> new NoSuchElementException("Agence introuvable : " + id));
         existing.setNom(entity.getNom());
         existing.setVille(entity.getVille());
         existing.setAdresse(entity.getAdresse());

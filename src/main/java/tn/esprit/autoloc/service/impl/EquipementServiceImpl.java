@@ -18,7 +18,7 @@ public class EquipementServiceImpl implements IEquipementService {
     @Override @Transactional(readOnly = true) public List<Equipement> findAll() { return repository.findAll(); }
     @Override @Transactional(readOnly = true) public Equipement findById(Long id) { return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Equipement introuvable : " + id)); }
     @Override public Equipement update(Long id, Equipement entity) {
-        Equipement existing = findById(id);
+        Equipement existing = repository.findById(id).orElseThrow(() -> new NoSuchElementException("Equipement introuvable : " + id));
         existing.setLibelle(entity.getLibelle());
         existing.setVehicule(entity.getVehicule());
         return repository.save(existing);

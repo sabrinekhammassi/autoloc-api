@@ -18,7 +18,7 @@ public class EmployeServiceImpl implements IEmployeService {
     @Override @Transactional(readOnly = true) public List<Employe> findAll() { return repository.findAll(); }
     @Override @Transactional(readOnly = true) public Employe findById(Long id) { return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Employe introuvable : " + id)); }
     @Override public Employe update(Long id, Employe entity) {
-        Employe existing = findById(id);
+        Employe existing = repository.findById(id).orElseThrow(() -> new NoSuchElementException("Employe introuvable : " + id));
         existing.setNom(entity.getNom());
         existing.setPrenom(entity.getPrenom());
         existing.setRole(entity.getRole());

@@ -18,7 +18,7 @@ public class VehiculeServiceImpl implements IVehiculeService {
     @Override @Transactional(readOnly = true) public List<Vehicule> findAll() { return repository.findAll(); }
     @Override @Transactional(readOnly = true) public Vehicule findById(Long id) { return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Vehicule introuvable : " + id)); }
     @Override public Vehicule update(Long id, Vehicule entity) {
-        Vehicule existing = findById(id);
+        Vehicule existing = repository.findById(id).orElseThrow(() -> new NoSuchElementException("Vehicule introuvable : " + id));
         existing.setImmatriculation(entity.getImmatriculation());
         existing.setMarque(entity.getMarque());
         existing.setModele(entity.getModele());
