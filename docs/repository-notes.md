@@ -44,4 +44,4 @@ Les corrections suivantes ont été faites pendant la relecture du code de l'ate
 
 ## Vérification
 
-La compilation Maven n'a pas pu être exécutée dans l'environnement de travail : le wrapper Maven tente de créer son installation dans un emplacement non accessible. Relancer `mvn -DskipTests compile` depuis un environnement où Maven est installé, puis démarrer l'application avec MySQL disponible pour vérifier la détection des neuf repositories et les routes CRUD.
+La compilation a réussi avec Maven 3.9 intégré à IntelliJ IDEA et Java 21 (`mvn -DskipTests compile`). Le cache Maven a été placé dans le répertoire temporaire de la session, car le cache utilisateur standard est en lecture seule dans l'environnement de travail. Les tests automatisés et le démarrage avec MySQL n'ont pas été lancés. SonarQube for IDE reste à installer et à exécuter dans IntelliJ pour remplacer les constats de relecture par les règles réellement rapportées par le plugin.
