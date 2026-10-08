@@ -12,16 +12,16 @@ import tn.esprit.autoloc.domain.Agence;
 import tn.esprit.autoloc.domain.CategorieVehicule;
 import tn.esprit.autoloc.domain.StatutVehicule;
 import tn.esprit.autoloc.domain.Vehicule;
-import tn.esprit.autoloc.repository.AgenceRepository;
-import tn.esprit.autoloc.repository.VehiculeRepository;
+import tn.esprit.autoloc.repository.IAgenceRepository;
+import tn.esprit.autoloc.repository.IVehiculeRepository;
 
 @Component
 @Profile("dev")
 @RequiredArgsConstructor
 public class DevDataInitializer implements CommandLineRunner {
 
-    private final VehiculeRepository vehiculeRepository;
-    private final AgenceRepository agenceRepository;
+    private final IVehiculeRepository vehiculeRepository;
+    private final IAgenceRepository agenceRepository;
 
     @Override
     public void run(String... args) {
