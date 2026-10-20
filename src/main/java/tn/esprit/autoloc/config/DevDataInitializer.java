@@ -25,8 +25,8 @@ public class DevDataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        Agence agence = agenceRepository.findFirstByNom("Agence Démo")
-                .orElseGet(() -> creerAgenceDemo());
+        Agence agence = agenceRepository.findFirstByNom("Agence Demo")
+                .orElseGet(this::creerAgenceDemo);
 
         List<Vehicule> vehiculesDemo = List.of(
                 creerVehicule("DEMO-001", "Toyota", "Yaris", CategorieVehicule.CITADINE,
@@ -44,7 +44,7 @@ public class DevDataInitializer implements CommandLineRunner {
 
     private Agence creerAgenceDemo() {
         Agence agence = new Agence();
-        agence.setNom("Agence Démo");
+        agence.setNom("Agence Demo");
         agence.setVille("Tunis");
         agence.setAdresse("Centre-ville");
         agence.setTelephone("71000000");
