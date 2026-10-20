@@ -1,12 +1,12 @@
 package tn.esprit.autoloc.service;
 
-import tn.esprit.autoloc.domain.Vehicule;
 import java.util.List;
+import tn.esprit.autoloc.domain.Vehicule;
 
 public interface IVehiculeService {
     Vehicule create(Vehicule entity);
-    List<Vehicule> findAll();
     Vehicule findById(Long id);
+    List<Vehicule> findAll();
     Vehicule update(Long id, Vehicule entity);
-    void delete(Long id);
+    void deleteById(Long id);
 }

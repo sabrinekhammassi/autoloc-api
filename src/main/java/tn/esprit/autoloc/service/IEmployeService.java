@@ -1,12 +1,12 @@
 package tn.esprit.autoloc.service;
 
-import tn.esprit.autoloc.domain.Employe;
 import java.util.List;
+import tn.esprit.autoloc.domain.Employe;
 
 public interface IEmployeService {
     Employe create(Employe entity);
-    List<Employe> findAll();
     Employe findById(Long id);
+    List<Employe> findAll();
     Employe update(Long id, Employe entity);
-    void delete(Long id);
+    void deleteById(Long id);
 }

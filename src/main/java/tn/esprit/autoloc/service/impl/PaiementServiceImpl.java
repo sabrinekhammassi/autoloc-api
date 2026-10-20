@@ -1,32 +1,26 @@
 package tn.esprit.autoloc.service.impl;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.autoloc.domain.Paiement;
+import tn.esprit.autoloc.exception.ResourceNotFoundException;
 import tn.esprit.autoloc.repository.IPaiementRepository;
 import tn.esprit.autoloc.service.IPaiementService;
-import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class PaiementServiceImpl implements IPaiementService {
     private final IPaiementRepository repository;
-    @Override public Paiement create(Paiement entity) { return repository.save(entity); }
-    @Override @Transactional(readOnly = true) public List<Paiement> findAll() { return repository.findAll(); }
-    @Override @Transactional(readOnly = true) public Paiement findById(Long id) { return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Paiement introuvable : " + id)); }
-    @Override public Paiement update(Long id, Paiement entity) {
-        Paiement existing = repository.findById(id).orElseThrow(() -> new NoSuchElementException("Paiement introuvable : " + id));
-        existing.setMontant(entity.getMontant());
-        existing.setDatePaiement(entity.getDatePaiement());
-        existing.setModePaiement(entity.getModePaiement());
-        existing.setContrat(entity.getContrat());
-        return repository.save(existing);
-    }
-    @Override public void delete(Long id) {
-        if (!repository.existsById(id)) throw new NoSuchElementException("Paiement introuvable : " + id);
-        repository.deleteById(id);
-    }
+    @Override
+    @Transactional(readOnly = true)
+    public Paiement findById(Long id) { return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Paiement", id)); }
+    @Override
+    @Transactional(readOnly = true)
+    public List<Paiement> findAll() { return repository.findAll(); }
+    private static void required(Object v,String f) { if(v==null) throw new IllegalArgumentException(f+" est obligatoire"); }
+    private static void blank(String v,String f) { if(v==null||v.isBlank()) throw new IllegalArgumentException(f+" est obligatoire"); }
+    private static void nonNegative(java.math.BigDecimal v,String f) { if(v==null||v.signum()<0) throw new IllegalArgumentException(f+" doit être positif ou nul"); }
 }
