@@ -31,11 +31,13 @@ Les services utilisent des champs `final` et une injection par constructeur gén
 
 ## D. Anomalies SonarQube for IDE
 
-| Règle/anomalie | Explication | Correction |
+| Règle/anomalie | Explication | Correction apportée |
 |---|---|---|
-| S6813 | Injection directe dans un champ | Injection constructeur avec champs `final` et `@RequiredArgsConstructor` |
-| S112 | Exception trop générique | Utilisation de `ResourceNotFoundException` pour une ressource absente |
-| Création avec identifiant préexistant | `save` pourrait faire un merge | Refus explicite de tout identifiant non nul dans `create` |
+| S6813 (cas étudié) | L’injection directe dans un champ masque la dépendance et empêche le champ `final`. | Les neuf services utilisent un champ `final` et `@RequiredArgsConstructor`. |
+| S112 (cas étudié) | Une exception générique ne décrit pas l’absence de la ressource. | Les recherches absentes lèvent `ResourceNotFoundException`. |
+| Garde métier | `save` avec un identifiant préexistant peut faire un merge au lieu d’une création. | Chaque méthode `create` refuse un identifiant non nul. |
+
+Ces règles et corrections sont documentées d’après l’atelier et le code. L’analyse SonarQube for IDE n’a pas été exécutée dans cet environnement; les identifiants de règles sont donc ceux indiqués par le sujet, pas un relevé d’analyse locale.
 
 ## E. Questions de compréhension
 

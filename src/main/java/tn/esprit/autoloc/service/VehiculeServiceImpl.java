@@ -1,4 +1,4 @@
-package tn.esprit.autoloc.service.impl;
+package tn.esprit.autoloc.service;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.autoloc.domain.Vehicule;
 import tn.esprit.autoloc.exception.ResourceNotFoundException;
 import tn.esprit.autoloc.repository.IVehiculeRepository;
-import tn.esprit.autoloc.service.IVehiculeService;
 
 @Service
 @RequiredArgsConstructor
@@ -44,5 +43,6 @@ public class VehiculeServiceImpl implements IVehiculeService {
     private void validate(Vehicule e) { blank(e.getImmatriculation(),"immatriculation"); blank(e.getMarque(),"marque"); blank(e.getModele(),"modele"); required(e.getCategorie(),"categorie"); nonNegative(e.getTarifJournalier(),"tarifJournalier"); required(e.getStatut(),"statut"); required(e.getAgence(),"agence"); }
     private static void required(Object v,String f) { if(v==null) throw new IllegalArgumentException(f+" est obligatoire"); }
     private static void blank(String v,String f) { if(v==null||v.isBlank()) throw new IllegalArgumentException(f+" est obligatoire"); }
-    private static void nonNegative(java.math.BigDecimal v,String f) { if(v==null||v.signum()<0) throw new IllegalArgumentException(f+" doit être positif ou nul"); }
+    private static void nonNegative(java.math.BigDecimal v,String f) { if(v==null||v.signum()<0) throw new IllegalArgumentException(f+" doit Ãªtre positif ou nul"); }
 }
+
