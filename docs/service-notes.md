@@ -33,6 +33,7 @@ Les services utilisent des champs `final` et une injection par constructeur gén
 
 | Règle/anomalie | Explication | Correction apportée |
 |---|---|---|
+| S4684 | Les endpoints de création/mise à jour recevaient directement des entités persistantes. | Ajout de DTO de requête et conversion explicite avec `toEntity()` dans la couche web. |
 | S6813 (cas étudié) | L’injection directe dans un champ masque la dépendance et empêche le champ `final`. | Les neuf services utilisent un champ `final` et `@RequiredArgsConstructor`. |
 | S112 (cas étudié) | Une exception générique ne décrit pas l’absence de la ressource. | Les recherches absentes lèvent `ResourceNotFoundException`. |
 | Garde métier | `save` avec un identifiant préexistant peut faire un merge au lieu d’une création. | Chaque méthode `create` refuse un identifiant non nul. |

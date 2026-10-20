@@ -13,21 +13,39 @@ import tn.esprit.autoloc.repository.IAgenceRepository;
 @Transactional
 public class AgenceServiceImpl implements IAgenceService {
     private final IAgenceRepository repository;
+
     @Override
     public Agence create(Agence entity) {
-        if (entity.getIdAgence() != null) throw new IllegalArgumentException("Un nouveau Agence ne doit pas avoir d'identifiant");
+        if (entity == null) {
+            throw new IllegalArgumentException("Agence est obligatoire");
+        }
+        if (entity.getIdAgence() != null) {
+            throw new IllegalArgumentException("Un nouvel objet Agence ne doit pas avoir d'identifiant");
+        }
         validate(entity);
         return repository.save(entity);
     }
+
     @Override
     @Transactional(readOnly = true)
-    public Agence findById(Long id) { return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Agence", id)); }
+    public Agence findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Agence", id));
+    }
+
     @Override
     @Transactional(readOnly = true)
-    public List<Agence> findAll() { return repository.findAll(); }
+    public List<Agence> findAll() {
+        return repository.findAll();
+    }
+
     @Override
     public Agence update(Long id, Agence entity) {
-        Agence existing = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Agence", id));
+        if (entity == null) {
+            throw new IllegalArgumentException("Agence est obligatoire");
+        }
+        Agence existing = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Agence", id));
         validate(entity);
         existing.setNom(entity.getNom());
         existing.setVille(entity.getVille());
@@ -35,11 +53,24 @@ public class AgenceServiceImpl implements IAgenceService {
         existing.setTelephone(entity.getTelephone());
         return repository.save(existing);
     }
-    @Override
-    public void deleteById(Long id) { if (!repository.existsById(id)) throw new ResourceNotFoundException("Agence", id); repository.deleteById(id); }
-    private void validate(Agence e) { blank(e.getNom(),"nom"); blank(e.getVille(),"ville"); blank(e.getAdresse(),"adresse"); }
-    private static void required(Object v,String f) { if(v==null) throw new IllegalArgumentException(f+" est obligatoire"); }
-    private static void blank(String v,String f) { if(v==null||v.isBlank()) throw new IllegalArgumentException(f+" est obligatoire"); }
-    private static void nonNegative(java.math.BigDecimal v,String f) { if(v==null||v.signum()<0) throw new IllegalArgumentException(f+" doit Ãªtre positif ou nul"); }
-}
 
+    @Override
+    public void deleteById(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Agence", id);
+        }
+        repository.deleteById(id);
+    }
+
+    private void validate(Agence entity) {
+        notBlank(entity.getNom(), "nom");
+        notBlank(entity.getVille(), "ville");
+        notBlank(entity.getAdresse(), "adresse");
+    }
+
+    private static void notBlank(String value, String field) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException(field + " est obligatoire");
+        }
+    }
+}
