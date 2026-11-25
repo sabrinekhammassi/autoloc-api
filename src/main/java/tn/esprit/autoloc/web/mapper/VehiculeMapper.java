@@ -6,7 +6,7 @@ import tn.esprit.autoloc.domain.Vehicule;
 import tn.esprit.autoloc.exception.ResourceNotFoundException;
 import tn.esprit.autoloc.repository.IAgenceRepository;
 import tn.esprit.autoloc.web.dto.VehiculeRequest;
-import tn.esprit.autoloc.web.dto.VehiculeResponse;
+import tn.esprit.autoloc.web.dto.VehiculeDTO;
 
 @Component
 @RequiredArgsConstructor
@@ -26,8 +26,8 @@ public class VehiculeMapper {
         return vehicule;
     }
 
-    public VehiculeResponse toResponse(Vehicule vehicule) {
-        return new VehiculeResponse(vehicule.getIdVehicule(), vehicule.getImmatriculation(), vehicule.getMarque(),
+    public VehiculeDTO toResponse(Vehicule vehicule) {
+        return new VehiculeDTO(vehicule.getIdVehicule(), vehicule.getImmatriculation(), vehicule.getMarque(),
                 vehicule.getModele(), vehicule.getCategorie(), vehicule.getTarifJournalier(), vehicule.getStatut(),
                 vehicule.getAgence() == null ? null : vehicule.getAgence().getIdAgence());
     }

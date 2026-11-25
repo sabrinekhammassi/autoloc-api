@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.autoloc.service.IVehiculeService;
 import tn.esprit.autoloc.web.dto.VehiculeRequest;
-import tn.esprit.autoloc.web.dto.VehiculeResponse;
+import tn.esprit.autoloc.web.dto.VehiculeDTO;
 import tn.esprit.autoloc.web.mapper.VehiculeMapper;
 
 @RestController
@@ -23,26 +23,42 @@ public class VehiculeController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create vehicule")
-    public VehiculeResponse create(@Valid @RequestBody VehiculeRequest request) {
+    public VehiculeDTO create(@Valid @RequestBody VehiculeRequest request) {
         return mapper.toResponse(service.create(mapper.toEntity(request)));
     }
 
     @GetMapping
     @Operation(summary = "List vehicule resources")
-    public List<VehiculeResponse> findAll() {
+    public List<VehiculeDTO> findAll() {
         return service.findAll().stream().map(mapper::toResponse).toList();
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get vehicule by ID")
-    public VehiculeResponse findById(@PathVariable Long id) {
+    public VehiculeDTO findById(@PathVariable Long id) {
         return mapper.toResponse(service.findById(id));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update vehicule")
-    public VehiculeResponse update(@PathVariable Long id, @Valid @RequestBody VehiculeRequest request) {
+    public VehiculeDTO update(@PathVariable Long id, @Valid @RequestBody VehiculeRequest request) {
         return mapper.toResponse(service.update(id, mapper.toEntity(request)));
+    }
+
+    @PutMapping("/{idVehicule}/equipements/{idEquipement}")
+    @Operation(summary = "Affecter un équipement à un véhicule")
+    public VehiculeDTO affecterVehiculeAEquipement(
+            @PathVariable Long idVehicule,
+            @PathVariable Long idEquipement) {
+        return service.affecterVehiculeAEquipement(idVehicule, idEquipement);
+    }
+
+    @PostMapping("/maintenance")
+    @Operation(summary = "Affecter une maintenance à un véhicule par immatriculation")
+    public VehiculeDTO affecterMaintenanceAvehicule(
+            @RequestParam String description,
+            @RequestParam String immatriculation) {
+        return service.affecterMaintenanceAvehicule(description, immatriculation);
     }
 
     @DeleteMapping("/{id}")
