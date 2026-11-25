@@ -1,0 +1,805 @@
+{
+  "info": {
+    "name": "AutoLoc API - Atelier 6 DTO Validator",
+    "description": "Collection CRUD des neuf ressources, avec exemples de validation et d'erreur centralis?e. Base URL fournie par l'environnement AutoLoc Local (8080).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 - Agences",
+      "description": "Aucun identifiant de relation requis.",
+      "item": [
+        {
+          "name": "Cr?er une agence",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO de requ?te.",
+            "url": "{{baseUrl}}/api/agences",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Agence Postman {{$timestamp}}\",\n  \"ville\": \"Tunis\",\n  \"adresse\": \"Centre-ville\",\n  \"telephone\": \"71000000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lister agences",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Retourne une liste de DTO de r?ponse.",
+            "url": "{{baseUrl}}/api/agences"
+          },
+          "response": []
+        },
+        {
+          "name": "Lire par ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Ajuste la variable ID si besoin.",
+            "url": "{{baseUrl}}/api/agences/{{agenceId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Modifier par ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO complet.",
+            "url": "{{baseUrl}}/api/agences/{{agenceId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Agence Postman {{$timestamp}}\",\n  \"ville\": \"Tunis\",\n  \"adresse\": \"Centre-ville\",\n  \"telephone\": \"71000000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Supprimer par ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "description": "Supprime la ressource s?lectionn?e.",
+            "url": "{{baseUrl}}/api/agences/{{agenceId}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02 - Clients",
+      "description": "E-mail valide et date d'inscription pass?e ou actuelle.",
+      "item": [
+        {
+          "name": "Cr?er un client",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO de requ?te.",
+            "url": "{{baseUrl}}/api/clients",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Ben Ali\",\n  \"prenom\": \"Sami\",\n  \"email\": \"client.{{$timestamp}}@example.com\",\n  \"telephone\": \"22123456\",\n  \"numPermis\": \"PERMIS-{{$timestamp}}\",\n  \"dateInscription\": \"2026-11-25\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lister clients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Retourne une liste de DTO de r?ponse.",
+            "url": "{{baseUrl}}/api/clients"
+          },
+          "response": []
+        },
+        {
+          "name": "Lire par ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Ajuste la variable ID si besoin.",
+            "url": "{{baseUrl}}/api/clients/{{clientId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Modifier par ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO complet.",
+            "url": "{{baseUrl}}/api/clients/{{clientId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Ben Ali\",\n  \"prenom\": \"Sami\",\n  \"email\": \"client.{{$timestamp}}@example.com\",\n  \"telephone\": \"22123456\",\n  \"numPermis\": \"PERMIS-{{$timestamp}}\",\n  \"dateInscription\": \"2026-11-25\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Supprimer par ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "description": "Supprime la ressource s?lectionn?e.",
+            "url": "{{baseUrl}}/api/clients/{{clientId}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03 - V?hicules",
+      "description": "categorie: CITADINE, BERLINE, SUV, UTILITAIRE. statut: DISPONIBLE, LOUE, MAINTENANCE.",
+      "item": [
+        {
+          "name": "Cr?er un v?hicule",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO de requ?te.",
+            "url": "{{baseUrl}}/api/vehicules",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"immatriculation\": \"TEST-{{$timestamp}}\",\n  \"marque\": \"Toyota\",\n  \"modele\": \"Yaris\",\n  \"categorie\": \"CITADINE\",\n  \"tarifJournalier\": 120,\n  \"statut\": \"DISPONIBLE\",\n  \"agenceId\": \"{{agenceId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lister v?hicules",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Retourne une liste de DTO de r?ponse.",
+            "url": "{{baseUrl}}/api/vehicules"
+          },
+          "response": []
+        },
+        {
+          "name": "Lire par ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Ajuste la variable ID si besoin.",
+            "url": "{{baseUrl}}/api/vehicules/{{vehiculeId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Modifier par ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO complet.",
+            "url": "{{baseUrl}}/api/vehicules/{{vehiculeId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"immatriculation\": \"TEST-{{$timestamp}}\",\n  \"marque\": \"Toyota\",\n  \"modele\": \"Yaris\",\n  \"categorie\": \"CITADINE\",\n  \"tarifJournalier\": 120,\n  \"statut\": \"DISPONIBLE\",\n  \"agenceId\": \"{{agenceId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Supprimer par ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "description": "Supprime la ressource s?lectionn?e.",
+            "url": "{{baseUrl}}/api/vehicules/{{vehiculeId}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "04 - Employ?s",
+      "description": "role: AGENT ou MANAGER. agenceId doit exister.",
+      "item": [
+        {
+          "name": "Cr?er un employ?",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO de requ?te.",
+            "url": "{{baseUrl}}/api/employes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Martin\",\n  \"prenom\": \"Nadia\",\n  \"role\": \"AGENT\",\n  \"agenceId\": \"{{agenceId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lister employ?s",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Retourne une liste de DTO de r?ponse.",
+            "url": "{{baseUrl}}/api/employes"
+          },
+          "response": []
+        },
+        {
+          "name": "Lire par ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Ajuste la variable ID si besoin.",
+            "url": "{{baseUrl}}/api/employes/{{employeId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Modifier par ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO complet.",
+            "url": "{{baseUrl}}/api/employes/{{employeId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Martin\",\n  \"prenom\": \"Nadia\",\n  \"role\": \"AGENT\",\n  \"agenceId\": \"{{agenceId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Supprimer par ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "description": "Supprime la ressource s?lectionn?e.",
+            "url": "{{baseUrl}}/api/employes/{{employeId}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "05 - ?quipements",
+      "description": "vehiculeId doit exister.",
+      "item": [
+        {
+          "name": "Cr?er un ?quipement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO de requ?te.",
+            "url": "{{baseUrl}}/api/equipements",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"libelle\": \"GPS\",\n  \"vehiculeId\": \"{{vehiculeId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lister ?quipements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Retourne une liste de DTO de r?ponse.",
+            "url": "{{baseUrl}}/api/equipements"
+          },
+          "response": []
+        },
+        {
+          "name": "Lire par ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Ajuste la variable ID si besoin.",
+            "url": "{{baseUrl}}/api/equipements/{{equipementId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Modifier par ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO complet.",
+            "url": "{{baseUrl}}/api/equipements/{{equipementId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"libelle\": \"GPS\",\n  \"vehiculeId\": \"{{vehiculeId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Supprimer par ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "description": "Supprime la ressource s?lectionn?e.",
+            "url": "{{baseUrl}}/api/equipements/{{equipementId}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "06 - R?servations",
+      "description": "statut: EN_ATTENTE, CONFIRMEE, ANNULEE, TERMINEE. Les dates doivent ?tre chronologiques.",
+      "item": [
+        {
+          "name": "Cr?er une r?servation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO de requ?te.",
+            "url": "{{baseUrl}}/api/reservations",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateDebut\": \"2026-12-01\",\n  \"dateFin\": \"2026-12-05\",\n  \"statut\": \"EN_ATTENTE\",\n  \"vehiculeId\": \"{{vehiculeId}}\",\n  \"clientId\": \"{{clientId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lister r?servations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Retourne une liste de DTO de r?ponse.",
+            "url": "{{baseUrl}}/api/reservations"
+          },
+          "response": []
+        },
+        {
+          "name": "Lire par ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Ajuste la variable ID si besoin.",
+            "url": "{{baseUrl}}/api/reservations/{{reservationId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Modifier par ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO complet.",
+            "url": "{{baseUrl}}/api/reservations/{{reservationId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateDebut\": \"2026-12-01\",\n  \"dateFin\": \"2026-12-05\",\n  \"statut\": \"EN_ATTENTE\",\n  \"vehiculeId\": \"{{vehiculeId}}\",\n  \"clientId\": \"{{clientId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Supprimer par ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "description": "Supprime la ressource s?lectionn?e.",
+            "url": "{{baseUrl}}/api/reservations/{{reservationId}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "07 - Contrats",
+      "description": "reservationId doit exister.",
+      "item": [
+        {
+          "name": "Cr?er un contrat",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO de requ?te.",
+            "url": "{{baseUrl}}/api/contrats",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateSignature\": \"2026-11-25\",\n  \"montantTotal\": 480,\n  \"valide\": true,\n  \"reservationId\": \"{{reservationId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lister contrats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Retourne une liste de DTO de r?ponse.",
+            "url": "{{baseUrl}}/api/contrats"
+          },
+          "response": []
+        },
+        {
+          "name": "Lire par ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Ajuste la variable ID si besoin.",
+            "url": "{{baseUrl}}/api/contrats/{{contratId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Modifier par ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO complet.",
+            "url": "{{baseUrl}}/api/contrats/{{contratId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateSignature\": \"2026-11-25\",\n  \"montantTotal\": 480,\n  \"valide\": true,\n  \"reservationId\": \"{{reservationId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Supprimer par ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "description": "Supprime la ressource s?lectionn?e.",
+            "url": "{{baseUrl}}/api/contrats/{{contratId}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "08 - Paiements",
+      "description": "modePaiement: CARTE, ESPECES, VIREMENT. contratId doit exister.",
+      "item": [
+        {
+          "name": "Cr?er un paiement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO de requ?te.",
+            "url": "{{baseUrl}}/api/paiements",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"montant\": 480,\n  \"datePaiement\": \"2026-11-25\",\n  \"modePaiement\": \"CARTE\",\n  \"contratId\": \"{{contratId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lister paiements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Retourne une liste de DTO de r?ponse.",
+            "url": "{{baseUrl}}/api/paiements"
+          },
+          "response": []
+        },
+        {
+          "name": "Lire par ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Ajuste la variable ID si besoin.",
+            "url": "{{baseUrl}}/api/paiements/{{paiementId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Modifier par ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO complet.",
+            "url": "{{baseUrl}}/api/paiements/{{paiementId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"montant\": 480,\n  \"datePaiement\": \"2026-11-25\",\n  \"modePaiement\": \"CARTE\",\n  \"contratId\": \"{{contratId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Supprimer par ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "description": "Supprime la ressource s?lectionn?e.",
+            "url": "{{baseUrl}}/api/paiements/{{paiementId}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "09 - Maintenances",
+      "description": "dateFin est facultative et ne peut pas pr?c?der dateDebut.",
+      "item": [
+        {
+          "name": "Cr?er une maintenance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO de requ?te.",
+            "url": "{{baseUrl}}/api/maintenances",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateDebut\": \"2026-11-25\",\n  \"dateFin\": \"2026-11-26\",\n  \"description\": \"R?vision g?n?rale\",\n  \"vehiculeId\": \"{{vehiculeId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lister maintenances",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Retourne une liste de DTO de r?ponse.",
+            "url": "{{baseUrl}}/api/maintenances"
+          },
+          "response": []
+        },
+        {
+          "name": "Lire par ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Ajuste la variable ID si besoin.",
+            "url": "{{baseUrl}}/api/maintenances/{{maintenanceId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Modifier par ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Envoie le DTO complet.",
+            "url": "{{baseUrl}}/api/maintenances/{{maintenanceId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateDebut\": \"2026-11-25\",\n  \"dateFin\": \"2026-11-26\",\n  \"description\": \"R?vision g?n?rale\",\n  \"vehiculeId\": \"{{vehiculeId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Supprimer par ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "description": "Supprime la ressource s?lectionn?e.",
+            "url": "{{baseUrl}}/api/maintenances/{{maintenanceId}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "10 - Validation et erreurs",
+      "description": "Exemples ? utiliser pour les captures d'ex?cution.",
+      "item": [
+        {
+          "name": "Validation - e-mail invalide (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "description": "Attend 400 et fieldErrors.email.",
+            "url": "{{baseUrl}}/api/clients",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Ben Ali\",\n  \"prenom\": \"Sami\",\n  \"email\": \"email-invalide\",\n  \"telephone\": \"22123456\",\n  \"numPermis\": \"PERMIS-INVALID-{{$timestamp}}\",\n  \"dateInscription\": \"2026-11-25\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Agence inexistante (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "Attend 404 avec le message de ressource introuvable.",
+            "url": "{{baseUrl}}/api/agences/-1"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

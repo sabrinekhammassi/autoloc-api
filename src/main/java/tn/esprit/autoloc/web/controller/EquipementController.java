@@ -1,15 +1,16 @@
 package tn.esprit.autoloc.web.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-import tn.esprit.autoloc.domain.Equipement;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import tn.esprit.autoloc.service.IEquipementService;
 import tn.esprit.autoloc.web.dto.EquipementRequest;
+import tn.esprit.autoloc.web.dto.EquipementResponse;
+import tn.esprit.autoloc.web.mapper.EquipementMapper;
 
 @RestController
 @RequestMapping("/api/equipements")
@@ -17,45 +18,36 @@ import tn.esprit.autoloc.web.dto.EquipementRequest;
 @Tag(name = "Equipements", description = "AutoLoc equipements API")
 public class EquipementController {
     private final IEquipementService service;
+    private final EquipementMapper mapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create equipement")
-    @ApiResponse(responseCode = "201", description = "Resource created")
-    @ApiResponse(responseCode = "400", description = "Invalid request")
-    public Equipement create(@RequestBody EquipementRequest request) {
-        return service.create(request.toEntity());
+    public EquipementResponse create(@Valid @RequestBody EquipementRequest request) {
+        return mapper.toResponse(service.create(mapper.toEntity(request)));
     }
 
     @GetMapping
     @Operation(summary = "List equipement resources")
-    @ApiResponse(responseCode = "200", description = "Successful response")
-    public List<Equipement> findAll() {
-        return service.findAll();
+    public List<EquipementResponse> findAll() {
+        return service.findAll().stream().map(mapper::toResponse).toList();
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get equipement by ID")
-    @ApiResponse(responseCode = "200", description = "Successful response")
-    @ApiResponse(responseCode = "404", description = "Resource not found")
-    public Equipement findById(@PathVariable Long id) {
-        return service.findById(id);
+    public EquipementResponse findById(@PathVariable Long id) {
+        return mapper.toResponse(service.findById(id));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update equipement")
-    @ApiResponse(responseCode = "200", description = "Successful response")
-    @ApiResponse(responseCode = "404", description = "Resource not found")
-    @ApiResponse(responseCode = "400", description = "Invalid request")
-    public Equipement update(@PathVariable Long id, @RequestBody EquipementRequest request) {
-        return service.update(id, request.toEntity());
+    public EquipementResponse update(@PathVariable Long id, @Valid @RequestBody EquipementRequest request) {
+        return mapper.toResponse(service.update(id, mapper.toEntity(request)));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete equipement")
-    @ApiResponse(responseCode = "204", description = "Resource deleted")
-    @ApiResponse(responseCode = "404", description = "Resource not found")
     public void delete(@PathVariable Long id) {
         service.deleteById(id);
     }

@@ -1,14 +1,11 @@
 package tn.esprit.autoloc.web.dto;
 
-import tn.esprit.autoloc.domain.Agence;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-public record AgenceRequest(String nom, String ville, String adresse, String telephone) {
-    public Agence toEntity() {
-        Agence agence = new Agence();
-        agence.setNom(nom);
-        agence.setVille(ville);
-        agence.setAdresse(adresse);
-        agence.setTelephone(telephone);
-        return agence;
-    }
+public record AgenceRequest(
+        @NotBlank @Size(max = 100) String nom,
+        @NotBlank @Size(max = 100) String ville,
+        @NotBlank @Size(max = 255) String adresse,
+        @Size(max = 20) String telephone) {
 }

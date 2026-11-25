@@ -1,20 +1,11 @@
 package tn.esprit.autoloc.web.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import tn.esprit.autoloc.domain.Vehicule;
-import tn.esprit.autoloc.domain.Equipement;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
-@Getter
-@Setter
-public class EquipementRequest {
-    private String libelle;
-    private Vehicule vehicule;
-
-    public Equipement toEntity() {
-        Equipement entity = new Equipement();
-        entity.setLibelle(getLibelle());
-        entity.setVehicule(getVehicule());
-        return entity;
-    }
+public record EquipementRequest(
+        @NotBlank @Size(max = 100) String libelle,
+        @NotNull @Positive Long vehiculeId) {
 }

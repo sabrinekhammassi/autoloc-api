@@ -1,25 +1,20 @@
 package tn.esprit.autoloc.web.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
-import tn.esprit.autoloc.domain.Vehicule;
-import tn.esprit.autoloc.domain.Maintenance;
 
-@Getter
-@Setter
-public class MaintenanceRequest {
-    private LocalDate dateDebut;
-    private LocalDate dateFin;
-    private String description;
-    private Vehicule vehicule;
+public record MaintenanceRequest(
+        @NotNull LocalDate dateDebut,
+        LocalDate dateFin,
+        @NotBlank @Size(max = 1000) String description,
+        @NotNull @Positive Long vehiculeId) {
 
-    public Maintenance toEntity() {
-        Maintenance entity = new Maintenance();
-        entity.setDateDebut(getDateDebut());
-        entity.setDateFin(getDateFin());
-        entity.setDescription(getDescription());
-        entity.setVehicule(getVehicule());
-        return entity;
+    @AssertTrue(message = "dateFin ne peut pas preceder dateDebut")
+    public boolean isDateRangeValid() {
+        return dateDebut == null || dateFin == null || !dateFin.isBefore(dateDebut);
     }
 }

@@ -1,29 +1,20 @@
 package tn.esprit.autoloc.web.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import java.time.LocalDate;
 import tn.esprit.autoloc.domain.StatutReservation;
-import tn.esprit.autoloc.domain.Vehicule;
-import tn.esprit.autoloc.domain.Client;
-import tn.esprit.autoloc.domain.Reservation;
 
-@Getter
-@Setter
-public class ReservationRequest {
-    private LocalDate dateDebut;
-    private LocalDate dateFin;
-    private StatutReservation statut;
-    private Vehicule vehicule;
-    private Client client;
+public record ReservationRequest(
+        @NotNull LocalDate dateDebut,
+        @NotNull LocalDate dateFin,
+        @NotNull StatutReservation statut,
+        @NotNull @Positive Long vehiculeId,
+        @NotNull @Positive Long clientId) {
 
-    public Reservation toEntity() {
-        Reservation entity = new Reservation();
-        entity.setDateDebut(getDateDebut());
-        entity.setDateFin(getDateFin());
-        entity.setStatut(getStatut());
-        entity.setVehicule(getVehicule());
-        entity.setClient(getClient());
-        return entity;
+    @AssertTrue(message = "dateFin ne peut pas preceder dateDebut")
+    public boolean isDateRangeValid() {
+        return dateDebut == null || dateFin == null || !dateFin.isBefore(dateDebut);
     }
 }

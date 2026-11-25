@@ -1,25 +1,14 @@
 package tn.esprit.autoloc.web.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import tn.esprit.autoloc.domain.RoleEmploye;
-import tn.esprit.autoloc.domain.Agence;
-import tn.esprit.autoloc.domain.Employe;
 
-@Getter
-@Setter
-public class EmployeRequest {
-    private String nom;
-    private String prenom;
-    private RoleEmploye role;
-    private Agence agence;
-
-    public Employe toEntity() {
-        Employe entity = new Employe();
-        entity.setNom(getNom());
-        entity.setPrenom(getPrenom());
-        entity.setRole(getRole());
-        entity.setAgence(getAgence());
-        return entity;
-    }
+public record EmployeRequest(
+        @NotBlank @Size(max = 50) String nom,
+        @NotBlank @Size(max = 50) String prenom,
+        @NotNull RoleEmploye role,
+        @NotNull @Positive Long agenceId) {
 }

@@ -1,26 +1,15 @@
 package tn.esprit.autoloc.web.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import java.time.LocalDate;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
-import tn.esprit.autoloc.domain.Reservation;
-import tn.esprit.autoloc.domain.Contrat;
+import java.time.LocalDate;
 
-@Getter
-@Setter
-public class ContratRequest {
-    private LocalDate dateSignature;
-    private BigDecimal montantTotal;
-    private boolean valide;
-    private Reservation reservation;
-
-    public Contrat toEntity() {
-        Contrat entity = new Contrat();
-        entity.setDateSignature(getDateSignature());
-        entity.setMontantTotal(getMontantTotal());
-        entity.setValide(isValide());
-        entity.setReservation(getReservation());
-        return entity;
-    }
+public record ContratRequest(
+        @NotNull LocalDate dateSignature,
+        @NotNull @DecimalMin("0.00") @Digits(integer = 8, fraction = 2) BigDecimal montantTotal,
+        boolean valide,
+        @NotNull @Positive Long reservationId) {
 }
